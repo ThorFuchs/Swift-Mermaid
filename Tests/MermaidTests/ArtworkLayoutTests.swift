@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 import CoreGraphics
+import Foundation
 @testable import Mermaid
 import SwiftUI
 import Testing
@@ -15,8 +16,16 @@ extension WebKitTestSuite {
         #expect(ArtworkCanvas.drawingRect(page: page, canvas: .zero) == .zero)
     }
 
-    @Test func upscalingIsOptInUnderARealSwiftUIProposal() async throws {
-        let artwork = try await MermaidRenderer().render("graph LR\n  A --> B")
+    @Test func upscalingIsOptInUnderARealSwiftUIProposal() throws {
+        let data = NSMutableData()
+        let consumer = try #require(CGDataConsumer(data: data as CFMutableData))
+        var bounds = CGRect(x: 0, y: 0, width: 200, height: 100)
+        let context = try #require(CGContext(consumer: consumer, mediaBox: &bounds, nil))
+        context.beginPDFPage(nil)
+        context.fill(bounds)
+        context.endPDFPage()
+        context.closePDF()
+        let artwork = Artwork(pdf: data as Data, svg: "<svg/>", size: bounds.size, baseline: bounds.height)
         let proposal = ProposedViewSize(width: artwork.size.width * 3, height: artwork.size.height * 3)
         let natural = ImageRenderer(content: ArtworkCanvas(artwork: artwork))
         natural.scale = 1

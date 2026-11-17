@@ -39,10 +39,25 @@ jobs:
       - name: Test macOS release
         run: swift test -c release
       - name: Test iOS simulator
-        run: >-
-          xcodebuild test -scheme Swift-Mermaid
-          -destination 'platform=iOS Simulator,name=iPhone 17,OS=27.2'
-          CODE_SIGNING_ALLOWED=NO
+        run: |
+          simulator=$(xcrun simctl list devices available --json | python3 -c '
+          import json, sys
+          devices = json.load(sys.stdin)["devices"]
+          print(next(d["udid"] for runtime, group in devices.items()
+                     if runtime.endswith("iOS-27-2") for d in group if d["name"] == "iPhone 17"))
+          ')
+          state=$(xcrun simctl list devices available --json | python3 -c '
+          import json, sys
+          groups = json.load(sys.stdin)["devices"].values()
+          print(next(d["state"] for group in groups for d in group if d["udid"] == sys.argv[1]))
+          ' "$simulator")
+          if [ "$state" != Booted ]; then xcrun simctl boot "$simulator"; fi
+          xcrun simctl bootstatus "$simulator" -b
+          # Starting Safari warms WebKit services; no server is needed on loopback.
+          xcrun simctl openurl "$simulator" http://127.0.0.1/
+          xcodebuild test -scheme Swift-Mermaid \
+            -destination "platform=iOS Simulator,id=$simulator" \
+            -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO
       - name: Build visionOS simulator
         run: >-
           xcodebuild build -scheme Swift-Mermaid
