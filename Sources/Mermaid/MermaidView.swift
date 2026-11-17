@@ -14,6 +14,7 @@ public struct MermaidView: View {
 
     enum Phase { case rendering, ready(Artwork), failed(String) }
 
+    /// Creates a diagram view from Mermaid source.
     public init(_ source: String) { self.source = source }
 
     public var body: some View {
@@ -53,9 +54,18 @@ public struct MermaidView: View {
     }
 
     private func render() async {
+        guard !Task.isCancelled else { return }
         let dark = colorScheme == .dark
         if let hit = MermaidRenderer.shared.cached(source, dark: dark) { apply(hit); return }
-        do { apply(.success(try await MermaidRenderer.shared.render(source, dark: dark))) } catch { apply(.failure(error)) }
+        state = .rendering
+        do {
+            let artwork = try await MermaidRenderer.shared.render(source, dark: dark)
+            guard !Task.isCancelled else { return }
+            apply(.success(artwork))
+        } catch {
+            guard !Task.isCancelled else { return }
+            apply(.failure(error))
+        }
     }
 
     private func apply(_ result: Result<Artwork, any Error>) {

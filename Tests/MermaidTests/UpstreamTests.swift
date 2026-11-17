@@ -7,6 +7,8 @@ import Testing
 @Suite struct Upstream {
     static let root = URL(filePath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 
+    // The checkout path is unavailable inside an iOS or visionOS simulator app.
+    #if os(macOS)
     @Test func bundledFilesMatchTheManifest() throws {
         let manifest = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: Self.root.appending(path: "Upstream.json"))) as? [String: Any])
         #expect(manifest["version"] as? String == MermaidRenderer.mermaidVersion)
@@ -23,4 +25,5 @@ import Testing
             #expect(digest == sha, "\(path)")
         }
     }
+    #endif
 }

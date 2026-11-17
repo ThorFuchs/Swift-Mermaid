@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 4 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  apple:
+    name: Apple platforms / Xcode 27.2
+    runs-on: xcode-27
+    timeout-minutes: 40
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_27.2.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Verify toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+          xcodebuild -version | grep -Fx 'Xcode 27.2'
+          swift --version | grep -F 'Apple Swift version 6.4.2 '
+      - name: Test macOS
+        run: swift test
+      - name: Test macOS release
+        run: swift test -c release
+      - name: Test iOS simulator
+        run: >-
+          xcodebuild test -scheme Swift-Mermaid
+          -destination 'platform=iOS Simulator,name=iPhone 17,OS=27.2'
+          CODE_SIGNING_ALLOWED=NO
+      - name: Build visionOS simulator
+        run: >-
+          xcodebuild build -scheme Swift-Mermaid
+          -destination 'generic/platform=visionOS Simulator'
+          CODE_SIGNING_ALLOWED=NO

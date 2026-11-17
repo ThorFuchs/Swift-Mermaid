@@ -6,8 +6,11 @@ import SwiftUI
 /// Vector artwork: a one-page PDF with its size in points and, for inline use, its baseline
 /// measured from the top. The PDF is what export embeds; the view draws the same page.
 public final class Artwork: @unchecked Sendable {
+    /// A single-page vector PDF with a transparent background.
     public let pdf: Data
+    /// The diagram's natural size in points.
     public let size: CGSize
+    /// The baseline measured in points from the top of the artwork.
     public let baseline: CGFloat
     /// Immutable after creation; only read for drawing.
     let page: CGPDFPage?

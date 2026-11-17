@@ -4,8 +4,9 @@
 #   Scripts/update-upstream.sh <version>
 set -euo pipefail
 VERSION="${1:?usage: Scripts/update-upstream.sh <version>}"
+[[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Use an exact stable version (for example 12.2.0)" >&2; exit 1; }
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DEST="$(echo "$ROOT"/Sources/*/Resources/mermaid)"
+DEST="$ROOT/Sources/Mermaid/Resources/mermaid"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
 INTEGRITY="$(npm view "mermaid@$VERSION" dist.integrity)"
 TARBALL="$(npm view "mermaid@$VERSION" dist.tarball)"
@@ -15,10 +16,10 @@ curl -sSfL -o "$WORK/pkg.tgz" "$TARBALL"
 ACTUAL="sha512-$(openssl dgst -sha512 -binary "$WORK/pkg.tgz" | base64)"
 [[ "$ACTUAL" == "$INTEGRITY" ]] || { echo "integrity mismatch: $ACTUAL != $INTEGRITY" >&2; exit 1; }
 mkdir -p "$WORK/x" && tar -xzf "$WORK/pkg.tgz" -C "$WORK/x"
-rm -rf "$DEST" && mkdir -p "$DEST"
-cp "$WORK/x/package/dist/mermaid.min.js" "$DEST/"
-cp "$WORK/x/package/LICENSE" "$ROOT/Licenses/$(ls "$ROOT/Licenses")"
-(cd "$DEST" && python3 -I - "mermaid" "$VERSION" "$INTEGRITY" > "$ROOT/Upstream.json" <<'PY'
+mkdir -p "$WORK/mermaid"
+cp "$WORK/x/package/dist/mermaid.min.js" "$WORK/mermaid/"
+cp "$WORK/x/package/LICENSE" "$WORK/Mermaid-LICENSE"
+(cd "$WORK/mermaid" && python3 -I - "mermaid" "$VERSION" "$INTEGRITY" > "$WORK/Upstream.json" <<'PY'
 import hashlib, json, os, sys
 files = {}
 for root, _, names in os.walk('.'):
@@ -28,4 +29,8 @@ for root, _, names in os.walk('.'):
 print(json.dumps({"package": sys.argv[1], "version": sys.argv[2], "npmIntegrity": sys.argv[3], "files": dict(sorted(files.items()))}, indent=2))
 PY
 )
+rm -rf "$DEST"
+mv "$WORK/mermaid" "$DEST"
+cp "$WORK/Mermaid-LICENSE" "$ROOT/Licenses/Mermaid-LICENSE"
+cp "$WORK/Upstream.json" "$ROOT/Upstream.json"
 echo "Updated to $VERSION. Now: set the version constant in Sources, add a CHANGELOG entry, run swift test and review the visual samples."

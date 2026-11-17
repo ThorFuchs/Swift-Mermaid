@@ -16,20 +16,24 @@ public enum MermaidError: Error, Sendable, Equatable {
 /// in one hidden WebView shared by all callers. `securityLevel: 'strict'`: labels cannot carry
 /// HTML and click handlers are off. Results are cached by source and appearance.
 @MainActor public final class MermaidRenderer {
+    /// The renderer used by `MermaidView`.
     public static let shared = MermaidRenderer()
     /// Exact upstream version bundled in this package.
     public nonisolated static let mermaidVersion = "12.2.0"
+    /// Maximum source length in Swift characters.
     public nonisolated static let maximumSourceLength = 50_000
     nonisolated static let fontFamily = #"-apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif"#
 
     private let host: WebRenderHost
     private let cache = ArtworkCache()
 
+    /// Creates a renderer with its own WebKit host and artwork cache.
     public init() {
         let page = Bundle.module.url(forResource: "render", withExtension: "html")!
         host = WebRenderHost(page: page, readAccess: page.deletingLastPathComponent())
     }
 
+    /// Returns a cached result, if present, without starting a render.
     public func cached(_ source: String, dark: Bool = false) -> Result<Artwork, any Error>? {
         cache.value(Self.key(source, dark))
     }
@@ -37,23 +41,30 @@ public enum MermaidError: Error, Sendable, Equatable {
     /// - Parameters:
     ///   - source: Mermaid source, as inside a ```mermaid fence.
     ///   - dark: Mermaid's dark theme instead of the default one.
+    /// - Throws: `MermaidError` for invalid input or rendering failures, or
+    ///   `CancellationError` when the task is cancelled.
     public func render(_ source: String, dark: Bool = false) async throws -> Artwork {
+        try Task.checkCancellation()
+        guard source.count <= Self.maximumSourceLength else { throw MermaidError.tooLong }
         let key = Self.key(source, dark)
         if let hit = cache.value(key) { return try hit.get() }
         let result: Result<Artwork, any Error>
         do {
             result = .success(try await draw(source, dark))
+        } catch is CancellationError {
+            throw CancellationError()
         } catch let error as MermaidError {
             result = .failure(error)
         } catch {
+            try Task.checkCancellation()
             throw MermaidError.engine(String(describing: error)) // transient: not cached
         }
+        try Task.checkCancellation()
         if case .failure(MermaidError.engine) = result {} else { cache.store(key, result) }
         return try result.get()
     }
 
     private func draw(_ source: String, _ dark: Bool) async throws -> Artwork {
-        guard source.count <= Self.maximumSourceLength else { throw MermaidError.tooLong }
         return try await host.exclusive { view in
             let r = try await host.call(view, "return await window.renderMermaid(source, dark, fontFamily);",
                                         arguments: ["source": source, "dark": dark, "fontFamily": Self.fontFamily],

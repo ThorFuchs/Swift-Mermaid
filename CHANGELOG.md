@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Bound WebKit operations and queue waits, recover after timeouts, and preserve task cancellation.
+- Prevent stale SwiftUI rendering results after source or appearance changes.
+- Add public repository documentation, CI, and renderer regression tests.
+
 ## 0.1.0 (2026-11-16)
 
 - First version: `MermaidRenderer` renders to vector PDF artwork in one shared offscreen WKWebView; `MermaidView` shows it in SwiftUI with light and dark, scale-to-fit, Show/Copy Source and VoiceOver.

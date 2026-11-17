@@ -56,6 +56,24 @@ import Testing
         await #expect(throws: MermaidError.tooLong) { try await renderer.render(String(repeating: "a", count: MermaidRenderer.maximumSourceLength + 1)) }
     }
 
+    @Test func cancellationIsPreservedEvenForCachedArtwork() async throws {
+        let renderer = MermaidRenderer()
+        let source = Self.diagrams[0]
+        _ = try await renderer.render(source)
+        let task = Task { @MainActor in try await renderer.render(source) }
+        task.cancel()
+        await #expect(throws: CancellationError.self) { try await task.value }
+    }
+
+    @Test func concurrentRequestsRenderDistinctDiagrams() async throws {
+        let renderer = MermaidRenderer()
+        async let first = renderer.render(Self.diagrams[0])
+        async let second = renderer.render(Self.diagrams[1])
+        let (a, b) = try await (first, second)
+        #expect(a.page != nil && b.page != nil)
+        #expect(a !== b)
+    }
+
     @Test func wideDiagramKeepsItsNaturalSize() async throws {
         let nodes = (0..<30).map { "  N\($0)[Node \($0)] --> N\($0 + 1)[Node \($0 + 1)]" }.joined(separator: "\n")
         let art = try await renderer.render("graph LR\n" + nodes)
