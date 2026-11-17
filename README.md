@@ -72,14 +72,15 @@ report vulnerabilities using [SECURITY.md](SECURITY.md).
 
 ## Related project
 
-[Swift-MD](https://github.com/ThorFuchs/Swift-MD) offers an experimental,
-opt-in server-side adapter for `mermaid` code fences. It runs Pele 1.13.0 in
+[Swift-MD's development branch](https://github.com/ThorFuchs/Swift-MD/tree/feature/restore-compiler-cli)
+has an experimental, opt-in server-side adapter for `mermaid` code fences.
+It runs Pele 1.13.0 in
 an explicitly configured local Node process and emits validated SVG into HTML;
 Swift-Mermaid uses Mermaid 12.2.0 in WebKit and produces PDF artwork. Eight
 basic diagram examples are exercised by both projects, but their supported
 syntax, rendering and error behavior can differ. Swift-MD disables links and
 images, fixes its Gantt clock and limits source to 16,384 UTF-8 bytes; see its
-[adapter documentation](https://github.com/ThorFuchs/Swift-MD/tree/main/Adapters/SwiftMDBlocks)
+[adapter documentation](https://github.com/ThorFuchs/Swift-MD/blob/feature/restore-compiler-cli/Adapters/SwiftMDBlocks/README.md)
 for its current security and resource limits.
 
 ## Development and releases
