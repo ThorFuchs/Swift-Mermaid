@@ -1,10 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.1.1 (unreleased)
 
 - Bound WebKit operations and queue waits, recover after timeouts, and preserve task cancellation.
 - Prevent stale SwiftUI rendering results after source or appearance changes.
 - Add public repository documentation, CI, and renderer regression tests.
+- Allow more time for Mermaid rendering on slower systems and cover strict security and shared Swift-MD diagram examples.
 
 ## 0.1.0 (2026-11-16)
 

@@ -68,7 +68,7 @@ public enum MermaidError: Error, Sendable, Equatable {
         return try await host.exclusive { view in
             let r = try await host.call(view, "return await window.renderMermaid(source, dark, fontFamily);",
                                         arguments: ["source": source, "dark": dark, "fontFamily": Self.fontFamily],
-                                        timeout: .seconds(20))
+                                        timeout: .seconds(30))
             if let message = r["error"] as? String { throw MermaidError.parse(message) }
             guard let x = r["x"] as? Double, let y = r["y"] as? Double, let w = r["width"] as? Double, let h = r["height"] as? Double,
                   w > 0, h > 0 else { throw MermaidError.engine("no measurable result") }

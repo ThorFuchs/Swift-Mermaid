@@ -6,6 +6,25 @@ import Testing
 import WebKit
 
 @MainActor @Suite(.serialized) struct WebRenderHostTests {
+    @Test func sourceDirectivesCannotDisableStrictSecurity() async throws {
+        let page = try #require(Bundle.module.url(forResource: "render", withExtension: "html"))
+        let host = WebRenderHost(page: page, readAccess: page.deletingLastPathComponent())
+        let source = """
+        %%{init: {"securityLevel": "loose"}}%%
+        flowchart LR
+          A[Click] --> B[Target]
+          click A "https://example.com" "tooltip"
+        """
+        let result = try await host.exclusive { view in
+            let rendered = try await host.call(view, "return await window.renderMermaid(source, false, fontFamily);", arguments: ["source": source, "fontFamily": MermaidRenderer.fontFamily], timeout: .seconds(30))
+            #expect(rendered["error"] == nil)
+            return try await host.call(view, "return { level: mermaid.mermaidAPI.getConfig().securityLevel, links: document.querySelectorAll('#box a[href]').length, handlers: document.querySelectorAll('#box [onclick]').length };", arguments: [:], timeout: .seconds(10))
+        }
+        #expect(result["level"] as? String == "strict")
+        #expect(result["links"] as? Int == 0)
+        #expect(result["handlers"] as? Int == 0)
+    }
+
     @Test func javascriptTimeoutReleasesTheHost() async throws {
         let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString, directoryHint: .isDirectory)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -82,7 +101,7 @@ import WebKit
             }
         }
         defer { holder.cancel() }
-        let startupDeadline = ContinuousClock.now + .seconds(15)
+        let startupDeadline = ContinuousClock.now + .seconds(45)
         while !holding {
             guard ContinuousClock.now < startupDeadline else {
                 Issue.record("host did not start")
