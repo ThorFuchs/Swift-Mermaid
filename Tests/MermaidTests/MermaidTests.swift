@@ -44,6 +44,21 @@ import Testing
         #expect(page.annotations.isEmpty, "strict mode: no link annotations")
     }
 
+    @Test(arguments: [
+        "flowchart LR\nA-->B",
+        "sequenceDiagram\nAlice->>Bob: Hello",
+        "classDiagram\nA <|-- B",
+        "stateDiagram-v2\n[*] --> Active",
+        "erDiagram\nUSER ||--o{ POST : writes",
+        "gantt\n title A\n dateFormat YYYY-MM-DD\n section X\n Task :a, 2020-01-01, 2d",
+        "pie\n \"A\" : 2\n \"B\" : 3",
+        "mindmap\n  root((Root))\n    Child",
+    ]) func rendersSwiftMDCompatibilitySamples(_ source: String) async throws {
+        // Shared syntax examples, not a guarantee that Mermaid and Pele render identically.
+        let artwork = try await renderer.render(source)
+        #expect(artwork.page != nil && artwork.size.width > 0 && artwork.size.height > 0)
+    }
+
     @Test func darkAndLightAreSeparateRenders() async throws {
         let light = try await renderer.render(Self.diagrams[0], dark: false)
         let again = try await renderer.render(Self.diagrams[0], dark: false)

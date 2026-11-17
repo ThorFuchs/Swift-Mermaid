@@ -1,10 +1,13 @@
 # Changelog
 
-## Unreleased
+## 0.1.1 (unreleased)
 
 - Bound WebKit operations and queue waits, recover after timeouts, and preserve task cancellation.
 - Prevent stale SwiftUI rendering results after source or appearance changes.
 - Add public repository documentation, CI, and renderer regression tests.
+- Allow more time for Mermaid rendering on slower systems and cover strict security and shared Swift-MD diagram examples.
+- Update bundled Mermaid to 12.3.0 (npm `sha512-4113TdXeLAsMruJ79OpFL5O8+LTFXhQqZ260rF3tgUmiNAtRm4Uume04I+65PRN6yZ69J4f8rVYWW8zRk65UYw==`), including its DOMPurify update.
+- Add a DocC catalog, complete public API documentation, and automated documentation checks.
 
 ## 0.1.0 (2026-11-16)
 
