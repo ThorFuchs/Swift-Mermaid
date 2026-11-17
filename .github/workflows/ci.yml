@@ -39,6 +39,7 @@ jobs:
       - name: Test macOS release
         run: swift test -c release
       - name: Test iOS simulator
+        timeout-minutes: 15
         run: |
           simulator=$(xcrun simctl list devices available --json | python3 -c '
           import json, sys
@@ -53,8 +54,6 @@ jobs:
           ' "$simulator")
           if [ "$state" != Booted ]; then xcrun simctl boot "$simulator"; fi
           xcrun simctl bootstatus "$simulator" -b
-          # Starting Safari warms WebKit services; no server is needed on loopback.
-          xcrun simctl openurl "$simulator" http://127.0.0.1/
           xcodebuild test -scheme Swift-Mermaid \
             -destination "platform=iOS Simulator,id=$simulator" \
             -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO
