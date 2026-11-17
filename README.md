@@ -1,7 +1,7 @@
 # Swift-Mermaid
 
 [Mermaid](https://mermaid.js.org) diagrams for SwiftUI, rendered by bundled
-Mermaid 12.2.0 into **vector PDF artwork**. Rendering uses a local, offscreen
+Mermaid 12.3.0 into **vector PDF artwork**. Rendering uses a local, offscreen
 WebKit view; the SwiftUI view draws the resulting PDF natively.
 
 ## Installation
@@ -76,12 +76,18 @@ report vulnerabilities using [SECURITY.md](SECURITY.md).
 has an experimental, opt-in server-side adapter for `mermaid` code fences.
 It runs Pele 1.13.0 in
 an explicitly configured local Node process and emits validated SVG into HTML;
-Swift-Mermaid uses Mermaid 12.2.0 in WebKit and produces PDF artwork. Eight
+Swift-Mermaid uses Mermaid 12.3.0 in WebKit and produces PDF artwork. Eight
 basic diagram examples are exercised by both projects, but their supported
 syntax, rendering and error behavior can differ. Swift-MD disables links and
 images, fixes its Gantt clock and limits source to 16,384 UTF-8 bytes; see its
 [adapter documentation](https://github.com/ThorFuchs/Swift-MD/blob/feature/restore-compiler-cli/Adapters/SwiftMDBlocks/README.md)
 for its current security and resource limits.
+
+## Documentation
+
+In Xcode, select **Product > Build Documentation** to browse the DocC API
+reference and guides. To validate and build a documentation archive locally,
+run `Scripts/build-docc.sh`; the archive is written to `.build/Mermaid.doccarchive`.
 
 ## Development and releases
 
@@ -95,4 +101,5 @@ publication date; the maintainer checks the two-week waiting period manually.
 
 Swift-Mermaid is licensed under [Apache-2.0](LICENSE). The bundled Mermaid is
 MIT-licensed; see [Licenses/Mermaid-LICENSE](Licenses/Mermaid-LICENSE) and
-[NOTICE](NOTICE).
+[NOTICE](NOTICE). The bundled JavaScript retains upstream third-party license
+notices.

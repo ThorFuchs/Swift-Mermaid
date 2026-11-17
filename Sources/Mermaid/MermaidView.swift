@@ -1,11 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
 import SwiftUI
 
-/// A Mermaid diagram rendered as vector artwork in Mermaid's light or dark theme.
+/// A SwiftUI view that displays a Mermaid diagram as vector artwork.
 ///
-/// - Wider than the space offered, the diagram scales down uniformly, never beyond its natural size.
-/// - The context menu offers "Show Source" and "Copy Source"; VoiceOver reads the source.
-/// - A diagram Mermaid rejects shows its source in monospace with Mermaid's reason.
+/// The view uses ``MermaidRenderer/shared`` and follows the environment's
+/// color scheme. It fits artwork to the available width without enlarging it
+/// past its natural size. While rendering, it shows a progress indicator; on
+/// failure, it displays the source and an explanation.
+///
+/// The context menu offers **Show Source** and **Copy Source**. VoiceOver reads
+/// the diagram source. For an example, see <doc:DisplayingDiagrams>.
 public struct MermaidView: View {
     private let source: String
     @Environment(\.colorScheme) private var colorScheme
@@ -14,9 +18,11 @@ public struct MermaidView: View {
 
     enum Phase { case rendering, ready(Artwork), failed(String) }
 
-    /// Creates a diagram view from Mermaid source.
+    /// Creates a view from Mermaid source without a Markdown code fence.
+    /// - Parameter source: The diagram source to render.
     public init(_ source: String) { self.source = source }
 
+    /// The view's content and interaction behavior.
     public var body: some View {
         Group {
             if showSource {

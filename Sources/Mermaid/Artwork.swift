@@ -3,14 +3,24 @@ import CoreGraphics
 import Foundation
 import SwiftUI
 
-/// Vector artwork: a one-page PDF with its size in points and, for inline use, its baseline
-/// measured from the top. The PDF is what export embeds; the view draws the same page.
+/// A rendered diagram as a single-page vector PDF and its natural dimensions.
+///
+/// Obtain artwork from ``MermaidRenderer/render(_:dark:)``. The PDF has a
+/// transparent background; choose a background appropriate to the selected
+/// theme when displaying, exporting, or printing it. ``MermaidView`` draws the
+/// same PDF, scaling it down when the available width is smaller.
+///
+/// Artwork is immutable after creation and can be passed between tasks.
 public final class Artwork: @unchecked Sendable {
     /// A single-page vector PDF with a transparent background.
     public let pdf: Data
     /// The diagram's natural size in points.
     public let size: CGSize
-    /// The baseline measured in points from the top of the artwork.
+    /// The baseline in points from the top of the artwork.
+    ///
+    /// For a Mermaid diagram, the baseline is the bottom of the artwork and
+    /// equals ``size``'s height. ``MermaidView`` doesn't define custom baseline
+    /// alignment with adjacent SwiftUI text.
     public let baseline: CGFloat
     /// Immutable after creation; only read for drawing.
     let page: CGPDFPage?
