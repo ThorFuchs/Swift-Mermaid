@@ -32,6 +32,7 @@ import Testing
     }
 }
 
+extension WebKitTestSuite {
 @MainActor @Suite(.serialized) struct MermaidViewIntegrationTests {
     @Test func sourceThemeAndRendererChangesTriggerRendering() async throws {
         _ = NSApplication.shared
@@ -91,5 +92,6 @@ import Testing
             try await Task.sleep(for: .milliseconds(20))
         }
     }
+}
 }
 #endif

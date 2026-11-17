@@ -4,6 +4,7 @@ import Foundation
 import PDFKit
 import Testing
 
+extension WebKitTestSuite {
 @MainActor @Suite(.serialized) struct MermaidRendering {
     let renderer = MermaidRenderer.shared
 
@@ -133,4 +134,5 @@ import Testing
             }
         }
     }
+}
 }

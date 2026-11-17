@@ -4,6 +4,7 @@ import CoreGraphics
 import SwiftUI
 import Testing
 
+extension WebKitTestSuite {
 @MainActor @Suite struct ArtworkLayoutTests {
     @Test func drawingPreservesAspectRatioInWideAndTallSpaces() {
         let page = CGRect(x: 10, y: 20, width: 200, height: 100)
@@ -29,4 +30,5 @@ import Testing
         #expect(CGFloat(resizedImage.width) > artwork.size.width * 2.5)
         #expect(abs(CGFloat(resizedImage.width) / CGFloat(resizedImage.height) - artwork.size.width / artwork.size.height) < 0.05)
     }
+}
 }

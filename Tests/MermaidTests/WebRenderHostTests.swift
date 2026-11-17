@@ -5,6 +5,7 @@ import Foundation
 import Testing
 import WebKit
 
+extension WebKitTestSuite {
 @MainActor @Suite(.serialized) struct WebRenderHostTests {
     @Test func sourceDirectivesCannotDisableStrictSecurity() async throws {
         let page = try #require(Bundle.module.url(forResource: "render", withExtension: "html"))
@@ -16,7 +17,7 @@ import WebKit
           click A "https://example.com" "tooltip"
         """
         let result = try await host.exclusive { view in
-            let rendered = try await host.call(view, "return await window.renderMermaid(source, false, fontFamily);", arguments: ["source": source, "fontFamily": MermaidRenderer.fontFamily], timeout: .seconds(30))
+            let rendered = try await host.call(view, "return await window.renderMermaid(source, theme, fontFamily);", arguments: ["source": source, "theme": "default", "fontFamily": MermaidRenderer.fontFamily], timeout: .seconds(30))
             #expect(rendered["error"] == nil)
             return try await host.call(view, "return { level: mermaid.mermaidAPI.getConfig().securityLevel, links: document.querySelectorAll('#box a[href]').length, handlers: document.querySelectorAll('#box [onclick]').length };", arguments: [:], timeout: .seconds(10))
         }
@@ -127,4 +128,5 @@ import WebKit
         #expect(result["ok"] as? Bool == true)
     }
 
+}
 }
