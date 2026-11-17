@@ -1,12 +1,12 @@
 // Called with arguments only (callAsyncJavaScript); the diagram source is never part of the script.
 let counter = 0;
-window.renderMermaid = async function (source, dark, fontFamily) {
+window.renderMermaid = async function (source, theme, fontFamily) {
   const box = document.getElementById('box');
   box.textContent = '';
   mermaid.initialize({
     startOnLoad: false,
     securityLevel: 'strict',
-    theme: dark ? 'dark' : 'default',
+    theme: theme,
     themeVariables: { background: 'transparent', fontFamily: fontFamily },
     fontFamily: fontFamily,
     deterministicIds: true,
@@ -33,5 +33,6 @@ window.renderMermaid = async function (source, dark, fontFamily) {
   }
   await document.fonts.ready;
   const r = el.getBoundingClientRect();
-  return { x: r.left, y: r.top, width: Math.ceil(r.width), height: Math.ceil(r.height) };
+  return { x: r.left, y: r.top, width: Math.ceil(r.width), height: Math.ceil(r.height),
+           svg: new XMLSerializer().serializeToString(el) };
 };

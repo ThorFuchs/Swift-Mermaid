@@ -10,8 +10,8 @@ sandbox or a guarantee that arbitrary hostile diagrams are safe.
 
 Sources are limited to 50,000 Swift characters. The queue wait has a 60-second
 deadline. Content-rule compilation, page load, and PDF creation each have a
-30-second deadline; the JavaScript call has a 20-second deadline. These are
-individual asynchronous operation deadlines, not a 20-second end-to-end limit.
+30-second deadline; the JavaScript call also has a 30-second deadline. These are
+individual asynchronous operation deadlines, not an end-to-end limit.
 They do not limit all CPU or memory use, and cancellation of a running WebKit
 operation may not complete until its deadline. The cache limits entry count,
 not total memory. An app accepting untrusted diagrams should apply its own

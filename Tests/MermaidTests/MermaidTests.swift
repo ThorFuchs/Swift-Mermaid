@@ -44,12 +44,51 @@ import Testing
         #expect(page.annotations.isEmpty, "strict mode: no link annotations")
     }
 
+    @Test(arguments: [
+        "flowchart LR\nA-->B",
+        "sequenceDiagram\nAlice->>Bob: Hello",
+        "classDiagram\nA <|-- B",
+        "stateDiagram-v2\n[*] --> Active",
+        "erDiagram\nUSER ||--o{ POST : writes",
+        "gantt\n title A\n dateFormat YYYY-MM-DD\n section X\n Task :a, 2020-01-01, 2d",
+        "pie\n \"A\" : 2\n \"B\" : 3",
+        "mindmap\n  root((Root))\n    Child",
+    ]) func rendersSwiftMDCompatibilitySamples(_ source: String) async throws {
+        // Shared syntax examples, not a guarantee that Mermaid and Pele render identically.
+        let artwork = try await renderer.render(source)
+        #expect(artwork.page != nil && artwork.size.width > 0 && artwork.size.height > 0)
+    }
+
     @Test func darkAndLightAreSeparateRenders() async throws {
         let light = try await renderer.render(Self.diagrams[0], dark: false)
         let again = try await renderer.render(Self.diagrams[0], dark: false)
         let dark = try await renderer.render(Self.diagrams[0], dark: true)
         #expect(light === again)
         #expect(light !== dark)
+    }
+
+    @Test func themesHaveSeparateCacheEntriesAndLegacyCallsMatch() async throws {
+        let renderer = MermaidRenderer()
+        let source = Self.diagrams[0]
+        let light = try await renderer.render(source, theme: .default)
+        let dark = try await renderer.render(source, theme: .dark)
+        let forest = try await renderer.render(source, theme: .forest)
+        let neutral = try await renderer.render(source, theme: .neutral)
+        #expect(try await renderer.render(source) === light)
+        #expect(try await renderer.render(source, dark: true) === dark)
+        #expect(try renderer.cached(source, theme: .forest)?.get() === forest)
+        #expect(forest !== neutral && forest !== light && dark !== light)
+        #expect(Set([light.svg, dark.svg, forest.svg, neutral.svg]).count == 4)
+    }
+
+    @Test func artworkContainsWellFormedSVGAndPDF() async throws {
+        let art = try await renderer.render(Self.diagrams[0], theme: .forest)
+        let parser = XMLParser(data: Data(art.svg.utf8))
+        #expect(parser.parse(), "SVG must be well-formed XML: \(String(describing: parser.parserError))")
+        #expect(art.svg.contains("<svg"))
+        #expect(art.svg.contains("viewBox="))
+        #expect(art.svg.contains("Start"))
+        #expect(PDFDocument(data: art.pdf)?.pageCount == 1)
     }
 
     @Test func overlongSourceIsRejected() async {

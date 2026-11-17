@@ -1,6 +1,10 @@
 # Testing
 
-Run `swift test` and `swift test -c release` on macOS with Swift 6.4. The suite
+Run `swift test`, `swift test -c release`, and `Scripts/build-docc.sh` on macOS
+with Swift 6.4. The DocC check requires documentation on every source-declared
+public symbol, type-checks the complete guide examples, and treats DocC
+warnings as errors. It produces an
+archive at `.build/Mermaid.doccarchive` by default. The suite
 checks common diagram types, error handling, caching, queue and WebKit timeouts,
 and the SHA-256 of the bundled Mermaid distribution against `Upstream.json`.
 The checksum check runs on macOS because it reads the source checkout.

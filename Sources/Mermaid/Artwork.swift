@@ -3,20 +3,37 @@ import CoreGraphics
 import Foundation
 import SwiftUI
 
-/// Vector artwork: a one-page PDF with its size in points and, for inline use, its baseline
-/// measured from the top. The PDF is what export embeds; the view draws the same page.
+/// A rendered diagram as vector PDF and SVG, with its natural dimensions.
+///
+/// Obtain artwork from ``MermaidRenderer/render(_:dark:)``. The PDF has a
+/// transparent background; choose a background appropriate to the selected
+/// theme when displaying, exporting, or printing it. ``MermaidView`` draws the
+/// same PDF, scaling it down when the available width is smaller.
+///
+/// Artwork is immutable after creation and can be passed between tasks.
 public final class Artwork: @unchecked Sendable {
     /// A single-page vector PDF with a transparent background.
     public let pdf: Data
+    /// SVG markup produced by Mermaid for the same render as ``pdf``.
+    ///
+    /// The SVG is generated in strict mode but isn't a general-purpose sanitized
+    /// HTML fragment. Apply appropriate policies before embedding it elsewhere.
+    /// Fonts and some SVG features depend on the destination renderer.
+    public let svg: String
     /// The diagram's natural size in points.
     public let size: CGSize
-    /// The baseline measured in points from the top of the artwork.
+    /// The baseline in points from the top of the artwork.
+    ///
+    /// For a Mermaid diagram, the baseline is the bottom of the artwork and
+    /// equals ``size``'s height. ``MermaidView`` doesn't define custom baseline
+    /// alignment with adjacent SwiftUI text.
     public let baseline: CGFloat
     /// Immutable after creation; only read for drawing.
     let page: CGPDFPage?
 
-    init(pdf: Data, size: CGSize, baseline: CGFloat) {
+    init(pdf: Data, svg: String, size: CGSize, baseline: CGFloat) {
         self.pdf = pdf
+        self.svg = svg
         self.size = size
         self.baseline = baseline
         page = CGDataProvider(data: pdf as CFData).flatMap(CGPDFDocument.init)?.page(at: 1)
@@ -26,21 +43,33 @@ public final class Artwork: @unchecked Sendable {
 /// Draws an `Artwork` at its natural size, scaled down uniformly when narrower space is offered.
 struct ArtworkCanvas: View {
     let artwork: Artwork
+    var allowsUpscaling = false
+
+    /// Fit the PDF inside the offered canvas, even if a parent forces its size.
+    static func drawingRect(page: CGRect, canvas: CGSize) -> CGRect {
+        guard page.width > 0, page.height > 0, canvas.width > 0, canvas.height > 0 else { return .zero }
+        let scale = min(canvas.width / page.width, canvas.height / page.height)
+        let size = CGSize(width: page.width * scale, height: page.height * scale)
+        return CGRect(x: (canvas.width - size.width) / 2, y: (canvas.height - size.height) / 2,
+                      width: size.width, height: size.height)
+    }
 
     var body: some View {
         Canvas { context, size in
             guard let page = artwork.page else { return }
             let box = page.getBoxRect(.mediaBox)
             guard box.width > 0, box.height > 0 else { return }
+            let rect = Self.drawingRect(page: box, canvas: size)
+            guard !rect.isEmpty else { return }
             context.withCGContext { cg in
-                cg.translateBy(x: 0, y: size.height)
-                cg.scaleBy(x: size.width / box.width, y: -size.height / box.height)
+                cg.translateBy(x: rect.minX, y: rect.maxY)
+                cg.scaleBy(x: rect.width / box.width, y: -rect.height / box.height)
                 cg.translateBy(x: -box.minX, y: -box.minY)
                 cg.drawPDFPage(page)
             }
         }
         .aspectRatio(artwork.size, contentMode: .fit)
-        .frame(maxWidth: artwork.size.width)
+        .frame(maxWidth: allowsUpscaling ? .infinity : artwork.size.width)
     }
 }
 
