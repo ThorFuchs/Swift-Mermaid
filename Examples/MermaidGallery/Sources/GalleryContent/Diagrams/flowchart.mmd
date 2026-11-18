@@ -1,0 +1,13 @@
+flowchart LR
+    idea([A bright idea]):::coral --> sketch[Sketch the story]:::peach
+    sketch --> explore{Ready to explore?}:::yellow
+    explore -->|Not yet| sketch
+    explore -->|Let's go| build[Build something lovely]:::mint
+    build --> share([Share with the world]):::blue
+
+    classDef coral fill:#FFE1DD,stroke:#EF8C83,color:#6D343A,stroke-width:2px
+    classDef peach fill:#FFF0DD,stroke:#E5B27B,color:#68482F,stroke-width:2px
+    classDef yellow fill:#FFF4C7,stroke:#DCC471,color:#65531F,stroke-width:2px
+    classDef mint fill:#DDF4EB,stroke:#75BBA1,color:#285C50,stroke-width:2px
+    classDef blue fill:#E3ECFF,stroke:#89A5E4,color:#344D82,stroke-width:2px
+    linkStyle default stroke:#8D91A5,stroke-width:2px

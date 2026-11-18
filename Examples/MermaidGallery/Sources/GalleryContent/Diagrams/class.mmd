@@ -1,0 +1,29 @@
+classDiagram
+    direction LR
+    class Collection {
+        +String name
+        +add(Story)
+    }
+    class Story {
+        +String title
+        +Date created
+        +publish()
+    }
+    class Illustration {
+        +String palette
+        +draw()
+    }
+    class Reader {
+        +String name
+        +explore()
+    }
+    Collection "1" o-- "many" Story : holds
+    Story "1" *-- "many" Illustration : brings to life
+    Reader --> Collection : discovers
+
+    classDef lavender fill:#EBE8FF,stroke:#A8A1E5,color:#383660
+    classDef peach fill:#FFEADF,stroke:#E7AA92,color:#65463F
+    classDef mint fill:#DFF4EC,stroke:#84BEAA,color:#305A50
+    cssClass "Collection,Reader" lavender
+    cssClass "Story" peach
+    cssClass "Illustration" mint

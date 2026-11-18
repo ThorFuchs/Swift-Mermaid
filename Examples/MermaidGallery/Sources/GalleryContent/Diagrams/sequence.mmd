@@ -1,0 +1,16 @@
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#E7E8FF','primaryTextColor':'#292A4C','primaryBorderColor':'#A6A8E8','lineColor':'#888EAA','actorBkg':'#E7E8FF','actorBorder':'#A6A8E8','actorTextColor':'#292A4C','noteBkgColor':'#FFF1D8','noteBorderColor':'#E9C58C','noteTextColor':'#594733','signalColor':'#68708C','signalTextColor':'#303650','activationBkgColor':'#D8F2E9','activationBorderColor':'#82BDA9'}}}%%
+sequenceDiagram
+    participant You as You
+    participant App as Gallery
+    participant Engine as Mermaid
+    participant Art as Artwork
+    You->>App: Choose a diagram
+    activate App
+    App->>Engine: Send the source
+    activate Engine
+    Note over Engine: A little bit of magic
+    Engine-->>App: Draw the diagram
+    deactivate Engine
+    App->>Art: Create vector artwork
+    Art-->>You: Ready to share
+    deactivate App

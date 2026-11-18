@@ -38,6 +38,8 @@ jobs:
         run: swift test
       - name: Test macOS release
         run: swift test -c release
+      - name: Test gallery examples
+        run: swift test --package-path Examples/MermaidGallery
       - name: Test iOS simulator
         timeout-minutes: 15
         run: |

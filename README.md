@@ -4,6 +4,23 @@
 Mermaid 12.3.0 into **vector PDF and SVG artwork**. Rendering uses a local,
 offscreen WebKit view; the SwiftUI view draws the resulting PDF natively.
 
+## Gallery
+
+These examples are rendered with `MermaidView`. Explore them interactively in
+the [macOS gallery app](Examples/MermaidGallery/README.md), or open the source
+for any diagram below.
+
+| | |
+| :--- | :--- |
+| ![A colorful flowchart from idea to impact](Documentation/Images/Gallery/flowchart.png) | ![A sequence diagram showing a collaboration](Documentation/Images/Gallery/sequence.png) |
+| [Flowchart source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/flowchart.mmd) | [Sequence source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/sequence.mmd) |
+| ![A class diagram showing stories and their parts](Documentation/Images/Gallery/class.png) | ![A state diagram of the creative process](Documentation/Images/Gallery/state.png) |
+| [Class source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/class.mmd) | [State source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/state.mmd) |
+| ![An entity relationship diagram of a world of stories](Documentation/Images/Gallery/er.png) | ![A Gantt chart of a creative project](Documentation/Images/Gallery/gantt.png) |
+| [Entity relationship source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/er.mmd) | [Gantt source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/gantt.mmd) |
+| ![A pastel pie chart showing time for creative activities](Documentation/Images/Gallery/pie.png) | ![A colorful mindmap of a creative life](Documentation/Images/Gallery/mindmap.png) |
+| [Pie chart source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/pie.mmd) | [Mindmap source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/mindmap.mmd) |
+
 ## Installation
 
 Add `https://github.com/ThorFuchs/Swift-Mermaid.git` in Xcode and select the

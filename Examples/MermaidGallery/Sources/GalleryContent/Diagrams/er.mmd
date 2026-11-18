@@ -1,0 +1,28 @@
+erDiagram
+    direction LR
+    STUDIO ||--o{ COLLECTION : curates
+    COLLECTION ||--|{ STORY : contains
+    STORY ||--o{ ILLUSTRATION : features
+    AUTHOR ||--o{ STORY : creates
+
+    STUDIO {
+        uuid id PK
+        string name
+    }
+    COLLECTION {
+        uuid id PK
+        string title
+    }
+    STORY {
+        uuid id PK
+        string title
+        date published
+    }
+    AUTHOR {
+        uuid id PK
+        string name
+    }
+    ILLUSTRATION {
+        uuid id PK
+        string palette
+    }
