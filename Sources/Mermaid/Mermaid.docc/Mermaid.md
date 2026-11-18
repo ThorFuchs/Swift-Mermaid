@@ -42,6 +42,33 @@ Swift 6.4 tools, SwiftUI, and WebKit. It doesn't support Linux or tvOS.
 - <doc:PieSyntax>
 - <doc:MindmapSyntax>
 
+### More diagram types
+
+- <doc:JourneySyntax>
+- <doc:QuadrantSyntax>
+- <doc:RequirementSyntax>
+- <doc:GitGraphSyntax>
+- <doc:C4Syntax>
+- <doc:TimelineSyntax>
+- <doc:SankeySyntax>
+- <doc:XYChartSyntax>
+- <doc:BlockSyntax>
+- <doc:PacketSyntax>
+- <doc:KanbanSyntax>
+- <doc:ArchitectureSyntax>
+- <doc:RadarSyntax>
+- <doc:TreemapSyntax>
+- <doc:VennSyntax>
+- <doc:SwimlaneSyntax>
+- <doc:EventModelingSyntax>
+- <doc:IshikawaSyntax>
+- <doc:WardleySyntax>
+- <doc:CynefinSyntax>
+- <doc:TreeViewSyntax>
+- <doc:AgentFlowSyntax>
+- <doc:RailroadSyntax>
+- <doc:UseCaseSyntax>
+
 ### Display and rendering
 
 - ``MermaidView``

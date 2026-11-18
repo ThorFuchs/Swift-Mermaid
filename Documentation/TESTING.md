@@ -8,7 +8,7 @@ archive at `.build/Mermaid.doccarchive` by default. The suite
 checks common diagram types, error handling, caching, queue and WebKit timeouts,
 and the SHA-256 of the bundled Mermaid distribution against `Upstream.json`.
 The checksum check runs on macOS because it reads the source checkout.
-On macOS the suite also renders every Mermaid code block in the eight DocC
+On macOS the suite also renders every Mermaid code block in the DocC diagram
 syntax guides using the bundled engine; it reads those guides from the checkout.
 
 CI also runs tests on an iOS simulator and builds for the visionOS simulator;

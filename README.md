@@ -21,6 +21,38 @@ for any diagram below.
 | ![A pastel pie chart showing time for creative activities](Documentation/Images/Gallery/pie.png) | ![A colorful mindmap of a creative life](Documentation/Images/Gallery/mindmap.png) |
 | [Pie chart source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/pie.mmd) | [Mindmap source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/mindmap.mmd) |
 
+<details>
+<summary>Explore 24 more diagram types</summary>
+
+| | |
+| :--- | :--- |
+| ![User journey diagram](Documentation/Images/Gallery/journey.png) | ![Quadrant chart diagram](Documentation/Images/Gallery/quadrant.png) |
+| [User journey source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/journey.mmd) | [Quadrant chart source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/quadrant.mmd) |
+| ![Requirement diagram](Documentation/Images/Gallery/requirement.png) | ![Git graph diagram](Documentation/Images/Gallery/gitgraph.png) |
+| [Requirement diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/requirement.mmd) | [Git graph source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/gitgraph.mmd) |
+| ![C4 diagram](Documentation/Images/Gallery/c4.png) | ![Timeline diagram](Documentation/Images/Gallery/timeline.png) |
+| [C4 diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/c4.mmd) | [Timeline source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/timeline.mmd) |
+| ![Sankey diagram](Documentation/Images/Gallery/sankey.png) | ![XY chart diagram](Documentation/Images/Gallery/xychart.png) |
+| [Sankey diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/sankey.mmd) | [XY chart source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/xychart.mmd) |
+| ![Block diagram](Documentation/Images/Gallery/block.png) | ![Packet diagram](Documentation/Images/Gallery/packet.png) |
+| [Block diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/block.mmd) | [Packet diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/packet.mmd) |
+| ![Kanban board diagram](Documentation/Images/Gallery/kanban.png) | ![Architecture diagram](Documentation/Images/Gallery/architecture.png) |
+| [Kanban board source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/kanban.mmd) | [Architecture diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/architecture.mmd) |
+| ![Radar chart diagram](Documentation/Images/Gallery/radar.png) | ![Treemap diagram](Documentation/Images/Gallery/treemap.png) |
+| [Radar chart source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/radar.mmd) | [Treemap source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/treemap.mmd) |
+| ![Venn diagram](Documentation/Images/Gallery/venn.png) | ![Swimlane diagram](Documentation/Images/Gallery/swimlane.png) |
+| [Venn diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/venn.mmd) | [Swimlane diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/swimlane.mmd) |
+| ![Event modeling diagram](Documentation/Images/Gallery/eventmodeling.png) | ![Ishikawa diagram](Documentation/Images/Gallery/ishikawa.png) |
+| [Event modeling source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/eventmodeling.mmd) | [Ishikawa diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/ishikawa.mmd) |
+| ![Wardley map diagram](Documentation/Images/Gallery/wardley.png) | ![Cynefin diagram](Documentation/Images/Gallery/cynefin.png) |
+| [Wardley map source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/wardley.mmd) | [Cynefin diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/cynefin.mmd) |
+| ![Tree view diagram](Documentation/Images/Gallery/treeview.png) | ![Agent flow diagram](Documentation/Images/Gallery/agentflow.png) |
+| [Tree view source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/treeview.mmd) | [Agent flow source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/agentflow.mmd) |
+| ![Railroad diagram](Documentation/Images/Gallery/railroad.png) | ![Use case diagram](Documentation/Images/Gallery/usecase.png) |
+| [Railroad diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/railroad.mmd) | [Use case diagram source](Examples/MermaidGallery/Sources/GalleryContent/Diagrams/usecase.mmd) |
+
+</details>
+
 ## Installation
 
 Add `https://github.com/ThorFuchs/Swift-Mermaid.git` in Xcode and select the
@@ -28,7 +60,7 @@ Add `https://github.com/ThorFuchs/Swift-Mermaid.git` in Xcode and select the
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.3"),
+    .package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.4"),
 ],
 targets: [
     .target(name: "YourTarget", dependencies: [
@@ -96,9 +128,10 @@ and `CancellationError` if the task is cancelled.
 By default, `MermaidView` follows the light or dark appearance and scales down
 to fit without scaling beyond the natural size. It offers **Show Source** and **Copy Source**
 in its context menu. VoiceOver reads the diagram source. A rejected diagram
-shows its source and a reason. The tested diagram types are flowchart,
-sequence, class, state, ER, Gantt, pie and mindmap; support for other syntax is
-inherited from the bundled Mermaid version and is not exhaustively tested.
+shows its source and a reason. The gallery exercises 32 diagram types with the bundled Mermaid version;
+individual features and other syntax are not exhaustively tested. Some diagram
+types are experimental or beta in Mermaid. External plugins such as ZenUML are
+not bundled.
 SVG export is Mermaid output, not a general-purpose sanitized HTML fragment;
 apply appropriate policies before embedding it in another context.
 Artwork has a transparent background. Dark-theme artwork is intended for a
@@ -140,7 +173,7 @@ for its current security and resource limits.
 In Xcode, select **Product > Build Documentation** to browse the DocC API
 reference and guides. To validate and build a documentation archive locally,
 run `Scripts/build-docc.sh`; the archive is written to `.build/Mermaid.doccarchive`.
-The catalog includes syntax guides for the eight diagram types in the gallery,
+The catalog includes syntax guides for the diagram types in the gallery,
 with links to the complete documentation for the bundled Mermaid version.
 
 ## Development and releases

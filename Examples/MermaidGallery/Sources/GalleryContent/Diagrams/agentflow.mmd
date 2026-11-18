@@ -1,0 +1,7 @@
+agentflow-beta TB
+    flow guide["Story Guide"]
+        draft["Read the draft"]@{ shape: input }
+        review["Look for clarity"]@{ shape: task }
+        ready["Ready to share?"]@{ shape: decision }
+        draft --> review --> ready
+    end

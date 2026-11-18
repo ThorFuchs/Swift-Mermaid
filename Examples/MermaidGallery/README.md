@@ -1,6 +1,6 @@
 # Mermaid Gallery
 
-A small macOS SwiftUI app for exploring eight bundled Mermaid diagrams. Select
+A small macOS SwiftUI app for exploring 32 bundled Mermaid diagrams. Select
 an example in the sidebar and choose **Show source** to see and copy its Mermaid
 text. The cards use `MermaidView` and share one `MermaidRenderer`.
 

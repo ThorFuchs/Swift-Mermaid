@@ -1,0 +1,9 @@
+architecture-beta
+    group studio(cloud)[Story Studio]
+    service reader(internet)[Reader] in studio
+    service app(server)[Story App] in studio
+    service catalog(database)[Catalog] in studio
+    service media(disk)[Media] in studio
+    reader:R --> L:app
+    app:R --> L:catalog
+    app:B --> T:media

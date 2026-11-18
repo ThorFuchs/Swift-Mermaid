@@ -1,0 +1,13 @@
+swimlane-beta LR
+    subgraph Writer
+      Idea[Find an idea]
+      Draft[Write a draft]
+    end
+    subgraph Editor
+      Review[Review the story]
+      Refine[Refine together]
+    end
+    subgraph Reader
+      Discover[Discover the story]
+    end
+    Idea --> Draft --> Review --> Refine --> Discover

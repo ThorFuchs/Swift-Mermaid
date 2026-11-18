@@ -1,0 +1,12 @@
+usecase-beta
+    direction LR
+    actor Reader("Reader")
+    actor Editor("Editor")
+    systemBoundary "Story Studio"
+      Browse("Browse stories")
+      Save("Save a favorite")
+      Curate("Curate a collection")
+    end
+    Reader --> Browse
+    Reader --> Save
+    Editor --> Curate

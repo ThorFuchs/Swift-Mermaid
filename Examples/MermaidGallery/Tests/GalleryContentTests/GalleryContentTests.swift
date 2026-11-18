@@ -4,6 +4,11 @@ import Mermaid
 import Testing
 
 @MainActor @Suite(.serialized) struct GalleryContentTests {
+    @Test func diagramIdentifiersAreUnique() {
+        let identifiers = DiagramSample.all.map(\.id)
+        #expect(Set(identifiers).count == identifiers.count)
+    }
+
     @Test(arguments: DiagramSample.all) func everyBundledExampleRenders(_ sample: DiagramSample) async throws {
         let source = try sample.source()
         #expect(!source.isEmpty)

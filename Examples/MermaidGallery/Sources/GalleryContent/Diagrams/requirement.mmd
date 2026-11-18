@@ -1,0 +1,15 @@
+requirementDiagram
+    requirement readable {
+      id: R1
+      text: Stories remain readable at different sizes
+      risk: medium
+      verifymethod: test
+    }
+    element preview {
+      type: application
+    }
+    element checks {
+      type: verification
+    }
+    preview - satisfies -> readable
+    checks - verifies -> readable

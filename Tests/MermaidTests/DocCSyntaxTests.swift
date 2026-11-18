@@ -6,6 +6,17 @@ import Testing
 
 extension WebKitTestSuite {
 @Suite struct DocCSyntax {
+    @MainActor @Test func externalZenUMLPluginIsNotBundled() async {
+        do {
+            _ = try await MermaidRenderer.shared.render("zenuml\n  Alice->Bob: Hello")
+            Issue.record("ZenUML unexpectedly rendered without its external plugin")
+        } catch MermaidError.parse {
+            // ZenUML is a separate plugin and isn't registered by this package.
+        } catch {
+            Issue.record("Expected a parse error for the unavailable plugin, got \(error)")
+        }
+    }
+
     /// The catalog is present in a source checkout, not in simulator test bundles.
     @MainActor @Test func syntaxGuideExamplesRender() async throws {
         let catalog = URL(fileURLWithPath: #filePath)
@@ -14,6 +25,30 @@ extension WebKitTestSuite {
         let guides = [
             "FlowchartSyntax", "SequenceSyntax", "ClassSyntax", "StateSyntax",
             "EntityRelationshipSyntax", "GanttSyntax", "PieSyntax", "MindmapSyntax",
+            "JourneySyntax",
+            "QuadrantSyntax",
+            "RequirementSyntax",
+            "GitGraphSyntax",
+            "C4Syntax",
+            "TimelineSyntax",
+            "SankeySyntax",
+            "XYChartSyntax",
+            "BlockSyntax",
+            "PacketSyntax",
+            "KanbanSyntax",
+            "ArchitectureSyntax",
+            "RadarSyntax",
+            "TreemapSyntax",
+            "VennSyntax",
+            "SwimlaneSyntax",
+            "EventModelingSyntax",
+            "IshikawaSyntax",
+            "WardleySyntax",
+            "CynefinSyntax",
+            "TreeViewSyntax",
+            "AgentFlowSyntax",
+            "RailroadSyntax",
+            "UseCaseSyntax",
         ]
         let expression = try NSRegularExpression(pattern: "(?ms)^```mermaid\\n(.*?)^```[ \\t]*$")
         let renderer = MermaidRenderer.shared

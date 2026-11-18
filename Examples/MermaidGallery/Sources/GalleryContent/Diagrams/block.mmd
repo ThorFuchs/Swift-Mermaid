@@ -1,0 +1,12 @@
+block-beta
+    columns 3
+    Reader["Reader"] space Editor["Editor"]
+    block:studio:3
+        columns 3
+        Stories["Stories"] Collections["Collections"] Search["Search"]
+    end
+    Library[("Library")]:3
+    Reader --> Stories
+    Editor --> Collections
+    Stories --> Library
+    Collections --> Library

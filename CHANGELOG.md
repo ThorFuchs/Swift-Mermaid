@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4 (2026-11-18)
+
+- Expand the example gallery and DocC syntax guides to cover 32 Mermaid diagram types, including experimental and beta types.
+- Add a test documenting that the external ZenUML plugin is not bundled.
+- Continue bundling Mermaid 12.3.0.
+
 ## 0.1.3 (2026-11-18)
 
 - Add DocC syntax guides for flowcharts, sequence, class, state, entity relationship, Gantt, pie, and mindmap diagrams, with links to Mermaid 12.3.0's complete documentation.

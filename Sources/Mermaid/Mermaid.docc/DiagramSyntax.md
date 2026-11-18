@@ -22,9 +22,9 @@ struct ProcessDiagram: View {
 }
 ```
 
-The eight guides below cover the types exercised by the package and its example
-gallery. Mermaid 12.3.0 supports additional types; this list is not an exclusive
-list of everything the bundled engine can parse. The guides explain common
+The guides below cover the diagram examples exercised by the package and its
+gallery. Mermaid 12.3.0 may support additional syntax; this list is not a promise
+of complete support for every Mermaid feature or plugin. The guides explain common
 constructs and link to the complete version-pinned upstream documentation for
 less common forms, configuration, grammar details, and edge cases.
 
@@ -40,6 +40,30 @@ less common forms, configuration, grammar details, and edge cases.
 | <doc:GanttSyntax> | `gantt` | Tasks on a timeline |
 | <doc:PieSyntax> | `pie` | Parts of a whole |
 | <doc:MindmapSyntax> | `mindmap` | Hierarchical ideas |
+| <doc:JourneySyntax> | `journey` | Experience over time |
+| <doc:QuadrantSyntax> | `quadrantChart` | Two-axis comparisons |
+| <doc:RequirementSyntax> | `requirementDiagram` | Requirement traceability |
+| <doc:GitGraphSyntax> | `gitGraph` | Branch histories |
+| <doc:C4Syntax> | `C4Context` | System context |
+| <doc:TimelineSyntax> | `timeline` | Ordered milestones |
+| <doc:SankeySyntax> | `sankey-beta` | Flows between categories |
+| <doc:XYChartSyntax> | `xychart-beta` | Bar and line series |
+| <doc:BlockSyntax> | `block-beta` | Structured blocks |
+| <doc:PacketSyntax> | `packet-beta` | Bit field layouts |
+| <doc:KanbanSyntax> | `kanban` | Tasks by stage |
+| <doc:ArchitectureSyntax> | `architecture-beta` | Services and connections |
+| <doc:RadarSyntax> | `radar-beta` | Multiaxis comparisons |
+| <doc:TreemapSyntax> | `treemap-beta` | Nested quantities |
+| <doc:VennSyntax> | `venn-beta` | Overlapping sets |
+| <doc:SwimlaneSyntax> | `swimlane-beta` | Cross-team processes |
+| <doc:EventModelingSyntax> | `eventmodeling` | Events and views |
+| <doc:IshikawaSyntax> | `ishikawa-beta` | Contributing factors |
+| <doc:WardleySyntax> | `wardley-beta` | Value chain mapping |
+| <doc:CynefinSyntax> | `cynefin-beta` | Situational domains |
+| <doc:TreeViewSyntax> | `treeView-beta` | Hierarchical lists |
+| <doc:AgentFlowSyntax> | `agentflow-beta` | Agent workflows |
+| <doc:RailroadSyntax> | `railroad-ebnf-beta` | Grammar visualization |
+| <doc:UseCaseSyntax> | `usecase-beta` | Actors and interactions |
 
 ## Shared considerations
 
@@ -78,3 +102,27 @@ when targeting both renderers.
 - <doc:GanttSyntax>
 - <doc:PieSyntax>
 - <doc:MindmapSyntax>
+- <doc:JourneySyntax>
+- <doc:QuadrantSyntax>
+- <doc:RequirementSyntax>
+- <doc:GitGraphSyntax>
+- <doc:C4Syntax>
+- <doc:TimelineSyntax>
+- <doc:SankeySyntax>
+- <doc:XYChartSyntax>
+- <doc:BlockSyntax>
+- <doc:PacketSyntax>
+- <doc:KanbanSyntax>
+- <doc:ArchitectureSyntax>
+- <doc:RadarSyntax>
+- <doc:TreemapSyntax>
+- <doc:VennSyntax>
+- <doc:SwimlaneSyntax>
+- <doc:EventModelingSyntax>
+- <doc:IshikawaSyntax>
+- <doc:WardleySyntax>
+- <doc:CynefinSyntax>
+- <doc:TreeViewSyntax>
+- <doc:AgentFlowSyntax>
+- <doc:RailroadSyntax>
+- <doc:UseCaseSyntax>
