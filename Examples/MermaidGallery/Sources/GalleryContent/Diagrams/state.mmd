@@ -1,17 +1,16 @@
 stateDiagram-v2
-    direction LR
+    direction TB
     [*] --> Dreaming
-    Dreaming --> Exploring: collect ideas
-    Exploring --> Sketching: find a spark
-    Exploring --> Gathering: collect inspiration
-    Sketching --> Refining: first draft
-    Gathering --> Refining: bring ideas together
-    Refining --> Shared: ready to go
+    Dreaming --> Sketching: make
+    Dreaming --> Gathering: explore
+    Sketching --> Refining
+    Gathering --> Refining
+    Refining --> Shared
     Shared --> [*]
 
     classDef lilac fill:#EBE8FF,stroke:#A8A1E5,color:#37345E
     classDef mint fill:#DFF4EC,stroke:#84BEAA,color:#285A4D
     classDef peach fill:#FFEADF,stroke:#E7AA92,color:#684239
-    class Dreaming,Exploring lilac
+    class Dreaming lilac
     class Sketching,Gathering,Refining peach
     class Shared mint

@@ -29,3 +29,10 @@ gallery directory; temporary windows may appear while it runs.
 ```sh
 swift run --package-path Examples/MermaidGallery GallerySnapshots Documentation/Images/Gallery
 ```
+
+Pass one or more diagram IDs after the output directory to regenerate only
+those images, for example:
+
+```sh
+swift run --package-path Examples/MermaidGallery GallerySnapshots Documentation/Images/Gallery c4 sankey
+```

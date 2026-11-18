@@ -1,9 +1,10 @@
 C4Context
     title A story studio
-    Person(reader, "Reader", "Discovers and enjoys stories")
-    Person(editor, "Editor", "Creates collections")
-    System(studio, "Story Studio", "Brings stories to life")
-    System_Ext(delivery, "Delivery service", "Sends reading updates")
-    Rel(reader, studio, "Reads stories")
-    Rel(editor, studio, "Curates collections")
-    Rel(studio, delivery, "Sends updates through")
+    Person(reader, "Reader", "Discovers stories")
+    System(studio, "Story Studio", "A home for stories")
+    Person(editor, "Editor", "Curates collections")
+    System_Ext(delivery, "Delivery", "Sends updates")
+    Rel(reader, studio, "Reads")
+    Rel(editor, studio, "Curates")
+    Rel(studio, delivery, "Sends updates")
+    UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")

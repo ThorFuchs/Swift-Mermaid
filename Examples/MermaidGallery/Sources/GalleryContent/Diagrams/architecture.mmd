@@ -6,4 +6,4 @@ architecture-beta
     service media(disk)[Media] in studio
     reader:R --> L:app
     app:R --> L:catalog
-    app:B --> T:media
+    catalog:R --> L:media

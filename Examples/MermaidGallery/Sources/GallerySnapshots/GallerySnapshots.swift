@@ -9,16 +9,24 @@ import SwiftUI
 @main enum GallerySnapshots {
     @MainActor static func main() async throws {
         let arguments = CommandLine.arguments
-        guard arguments.count == 2 else {
-            fputs("Usage: GallerySnapshots <output-directory>\n", stderr)
+        guard arguments.count >= 2 else {
+            fputs("Usage: GallerySnapshots <output-directory> [diagram-id ...]\n", stderr)
             exit(2)
         }
+        let requested = Set(arguments.dropFirst(2))
+        let known = Set(DiagramSample.all.map(\.id))
+        let unknown = requested.subtracting(known)
+        guard unknown.isEmpty else {
+            fputs("Unknown diagram IDs: \(unknown.sorted().joined(separator: ", "))\n", stderr)
+            exit(2)
+        }
+        let samples = requested.isEmpty ? DiagramSample.all : DiagramSample.all.filter { requested.contains($0.id) }
         let output = URL(filePath: arguments[1], directoryHint: .isDirectory)
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
         let application = NSApplication.shared
         application.setActivationPolicy(.accessory)
         let renderer = MermaidRenderer()
-        for sample in DiagramSample.all {
+        for sample in samples {
             var renderResult: Result<Artwork, any Error>?
             let card = GalleryCard(sample: sample, source: try sample.source(), renderer: renderer) { result in
                 renderResult = result

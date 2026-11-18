@@ -9,7 +9,7 @@ dependency and select the `Mermaid` library. For a Swift package, add the
 following dependency and product to your manifest:
 
 ```swift
-.package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.4")
+.package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.5")
 ```
 
 ```swift

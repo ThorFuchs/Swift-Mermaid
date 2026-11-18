@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.5 (2026-11-18)
+
+- Improve the layout, colors, and legibility of selected gallery diagrams and refresh their screenshots.
+- Allow the gallery snapshot tool to regenerate selected diagrams by ID.
+- Continue bundling Mermaid 12.3.0.
+
 ## 0.1.4 (2026-11-18)
 
 - Expand the example gallery and DocC syntax guides to cover 32 Mermaid diagram types, including experimental and beta types.
