@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 (2026-11-18)
+
+- Add a macOS SwiftUI gallery app with eight bundled, editable Mermaid examples and a shared renderer.
+- Add a visual README gallery and a tool to regenerate its images from the example views.
+- Test every bundled gallery example in CI. Mermaid remains at version 12.3.0.
+
 ## 0.1.1 (2026-11-18)
 
 - Bound WebKit operations and queue waits, recover after timeouts, and preserve task cancellation.

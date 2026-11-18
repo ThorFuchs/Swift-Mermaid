@@ -28,7 +28,7 @@ Add `https://github.com/ThorFuchs/Swift-Mermaid.git` in Xcode and select the
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.1"),
+    .package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.2"),
 ],
 targets: [
     .target(name: "YourTarget", dependencies: [
