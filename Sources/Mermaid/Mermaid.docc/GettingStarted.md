@@ -9,7 +9,7 @@ dependency and select the `Mermaid` library. For a Swift package, add the
 following dependency and product to your manifest:
 
 ```swift
-.package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.1")
+.package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.3")
 ```
 
 ```swift
@@ -41,3 +41,4 @@ struct DiagramScreen: View {
 Pass only the source, without the surrounding Markdown `mermaid` code fence.
 The view renders asynchronously and follows the environment's light or dark
 appearance. See <doc:DisplayingDiagrams> for layout and accessibility details.
+For diagram syntax and examples, see <doc:DiagramSyntax>.

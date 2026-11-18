@@ -28,7 +28,7 @@ Add `https://github.com/ThorFuchs/Swift-Mermaid.git` in Xcode and select the
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.2"),
+    .package(url: "https://github.com/ThorFuchs/Swift-Mermaid.git", from: "0.1.3"),
 ],
 targets: [
     .target(name: "YourTarget", dependencies: [
@@ -140,6 +140,8 @@ for its current security and resource limits.
 In Xcode, select **Product > Build Documentation** to browse the DocC API
 reference and guides. To validate and build a documentation archive locally,
 run `Scripts/build-docc.sh`; the archive is written to `.build/Mermaid.doccarchive`.
+The catalog includes syntax guides for the eight diagram types in the gallery,
+with links to the complete documentation for the bundled Mermaid version.
 
 ## Development and releases
 

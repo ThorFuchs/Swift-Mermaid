@@ -30,6 +30,18 @@ Swift 6.4 tools, SwiftUI, and WebKit. It doesn't support Linux or tvOS.
 - <doc:ErrorsAndCaching>
 - <doc:SecurityAndLimits>
 
+### Mermaid syntax
+
+- <doc:DiagramSyntax>
+- <doc:FlowchartSyntax>
+- <doc:SequenceSyntax>
+- <doc:ClassSyntax>
+- <doc:StateSyntax>
+- <doc:EntityRelationshipSyntax>
+- <doc:GanttSyntax>
+- <doc:PieSyntax>
+- <doc:MindmapSyntax>
+
 ### Display and rendering
 
 - ``MermaidView``

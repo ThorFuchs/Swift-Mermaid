@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3 (2026-11-18)
+
+- Add DocC syntax guides for flowcharts, sequence, class, state, entity relationship, Gantt, pie, and mindmap diagrams, with links to Mermaid 12.3.0's complete documentation.
+- Render the guides' Mermaid examples in the macOS test suite and type-check the Swift introduction example during DocC validation.
+- Clarify the relationship between Swift-Mermaid and the separate Pele renderer. Mermaid remains at version 12.3.0.
+
 ## 0.1.2 (2026-11-18)
 
 - Add a macOS SwiftUI gallery app with eight bundled, editable Mermaid examples and a shared renderer.

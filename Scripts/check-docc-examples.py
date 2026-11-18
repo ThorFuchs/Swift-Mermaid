@@ -10,7 +10,7 @@ import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CATALOG = ROOT / "Sources/Mermaid/Mermaid.docc"
-GUIDES = ("GettingStarted", "DisplayingDiagrams", "RenderingAndExport", "ErrorsAndCaching")
+GUIDES = ("GettingStarted", "DisplayingDiagrams", "RenderingAndExport", "ErrorsAndCaching", "DiagramSyntax")
 
 
 def main():
