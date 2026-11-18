@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.1 (unreleased)
+## 0.1.1 (2026-11-18)
 
 - Bound WebKit operations and queue waits, recover after timeouts, and preserve task cancellation.
 - Prevent stale SwiftUI rendering results after source or appearance changes.
